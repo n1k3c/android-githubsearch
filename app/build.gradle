@@ -1,0 +1,126 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+    defaultConfig {
+        applicationId "n1x0nj4.githubsearch"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        release {
+            keyAlias 'keyAllias'
+            storeFile file('/.../android-githubsearch/keystore.jks')
+            keyPassword 'keyPassword'
+            storePassword 'storePassword'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    def STRING = 'String'
+    def API_URL = 'API_URL'
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            // applicationIdSuffix '.development'
+            // TODO: Add signing config for debug
+            // signingConfig signingConfigs.release
+            buildConfigField STRING, API_URL, '"https://api.github.com"'
+            // manifestPlaceholders = [crashlyticsEnabled: false]
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // TODO: Add signing config for release
+            signingConfig signingConfigs.release
+            buildConfigField STRING, API_URL, '"https://api.github.com"'
+            // manifestPlaceholders = [crashlyticsEnabled: true]
+        }
+    }
+    kapt {
+        generateStubs = true
+        useBuildCache = true
+    }
+    androidExtensions {
+        experimental = true
+    }
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // Kotlin
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // Support libraries
+    implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintLayoutVersion"
+    // Testing
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.testRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
+    testImplementation "android.arch.core:core-testing:$project.archVersion"
+    testImplementation "org.mockito:mockito-core:$project.mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$project.mockitoVersion"
+    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1'
+    // Dagger
+    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
+    implementation "com.google.dagger:dagger-android:$rootProject.daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxKotlinVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$rootProject.retrofitVersion"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rootProject.rxAdapterVersion"
+    // Http
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:$rootProject.okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
+    implementation "com.squareup.okhttp3:okhttp-ws:$rootProject.okhttpVersion"
+    // Architecture components
+    implementation "android.arch.lifecycle:runtime:$rootProject.archVersion"
+    implementation "android.arch.lifecycle:extensions:$rootProject.archVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$project.archVersion"
+    kapt "android.arch.lifecycle:compiler:$rootProject.archVersion"
+    // Timber
+    implementation "com.github.ajalt:timberkt:$rootProject.timberKtVersion"
+    // Stetho
+    implementation "com.facebook.stetho:stetho:$rootProject.stethoVersion"
+    implementation "com.facebook.stetho:stetho-okhttp3:$rootProject.stethoVersion"
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$rootProject.glide"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glide"
+    // Paging
+    implementation "android.arch.paging:runtime:$rootProject.pagingVersion"
+    implementation "android.arch.paging:rxjava2:$rootProject.pagingRxVersion"
+}

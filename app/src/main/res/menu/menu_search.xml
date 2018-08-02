@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/search"
+            android:title="@string/search"
+            android:icon="@android:drawable/ic_menu_search"
+            app:showAsAction="always"
+            app:actionViewClass="android.support.v7.widget.SearchView"/>
+
+    <item
+            android:id="@+id/filter"
+            android:title="@string/filter"
+            android:icon="@drawable/ic_filter"
+            android:visible="false"
+            app:showAsAction="ifRoom">
+        <menu>
+            <item
+                    android:id="@+id/stars"
+                    android:title="@string/stars"/>
+            <item
+                    android:id="@+id/forks"
+                    android:title="@string/forks"/>
+            <item
+                    android:id="@+id/updated"
+                    android:title="@string/updated"/>
+        </menu>
+    </item>
+</menu>

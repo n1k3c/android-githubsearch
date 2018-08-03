@@ -37,7 +37,7 @@ class RepoDataSource(private val apiService: ApiService,
                 }
                 .subscribe(
                         { t ->
-                            callback.onResult(t, nextPage + 1)
+                            callback.onResult(t, nextPage)
                         },
                         { it ->
                             e { it.localizedMessage }
